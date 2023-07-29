@@ -52,7 +52,7 @@ public class HotelManagementController {
     @GetMapping("/get-hotel-with-most-facilities")
     public String getHotelWithMostFacilities(){
         String validHotel = "";
-        int mostfacility = Integer.MIN_VALUE;
+        int mostfacility = 0;
         //Out of all the hotels we have added so far, we need to find the hotelName with most no of facilities
         for (String name : hoteldb.keySet()){
             if(hoteldb.get(name).getFacilities().size() > mostfacility){
