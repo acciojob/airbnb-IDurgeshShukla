@@ -28,7 +28,7 @@ public class HotelManagementController {
 
         //You need to add an hotel to the database
         //incase the hotelName is null or the hotel Object is null return an empty a FAILURE
-        if (hotel.getHotelName().equals(null) || hotel == null) return "FAILURE";
+        if ( hotel == null || hotel.getHotelName() == null) return "FAILURE";
         //Incase somebody is trying to add the duplicate hotelName return FAILURE
         if (hoteldb.containsKey(hotel.getHotelName())) return "FAILURE";
         //in all other cases return SUCCESS after successfully adding the hotel to the hotelDb.
@@ -52,12 +52,12 @@ public class HotelManagementController {
     @GetMapping("/get-hotel-with-most-facilities")
     public String getHotelWithMostFacilities(){
         String validHotel = "";
-        int mostfacility = Integer.MAX_VALUE;
+        int mostfacility = Integer.MIN_VALUE;
         //Out of all the hotels we have added so far, we need to find the hotelName with most no of facilities
         for (String name : hoteldb.keySet()){
-            if(mostfacility < hoteldb.get(name).getFacilities().size()){
+            if(hoteldb.get(name).getFacilities().size() > mostfacility){
                 mostfacility = hoteldb.get(name).getFacilities().size();
-                validHotel = hoteldb.get(name).getHotelName();
+                validHotel = name;
             }
         }
         //Incase there is a tie return the lexicographically smaller hotelName
